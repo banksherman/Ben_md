@@ -1,3 +1,4 @@
+
 # Ben_md
 Ben_md your best whatsapp bot
 created by K.BANKS to enhance your whatsapp functionality 
@@ -181,3 +182,101 @@ jobs:
 </div>
 
 <img src="https://i.imgur.com/dBaSKWF.gif" height="90" width="100%">
+or 
+PAIR
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>BEN-MD</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #121212;
+      color: #ffffff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 40px 20px;
+    }
+    h1 {
+      color: #00ff88;
+      font-size: 28px;
+      margin-bottom: 20px;
+    }
+    input, button {
+      padding: 12px;
+      font-size: 16px;
+      border-radius: 8px;
+      border: none;
+      margin: 10px 0;
+      width: 100%;
+      max-width: 400px;
+    }
+    input {
+      background: #222;
+      color: #fff;
+      border: 1px solid #444;
+    }
+    button {
+      background-color: #00ff88;
+      color: #000;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+    button:hover {
+      background-color: #00cc6e;
+    }
+    .output {
+      margin-top: 30px;
+      background: #1e1e1e;
+      padding: 20px;
+      border-radius: 10px;
+      max-width: 500px;
+      word-break: break-all;
+      border: 1px solid #333;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>BEN-MD Pairing</h1>
+
+  <input type="text" id="number" placeholder="Enter WhatsApp Number (e.g., 923123456789)" />
+  <button onclick="getCode()">Generate Pair Code</button>
+
+  <div id="result" class="output" style="display:none;"></div>
+
+  <script>
+    async function getCode() {
+      const number = document.getElementById("number").value.trim();
+      const resultBox = document.getElementById("result");
+
+      if (!number) {
+        alert("Please enter a valid number.");
+        return;
+      }
+
+      resultBox.style.display = 'block';
+      resultBox.textContent = "⏳ Generating code, please wait...";
+
+      try {
+        const res = await fetch(`/code?number=${encodeURIComponent(number)}`);
+        const data = await res.json();
+
+        if (data.code) {
+          resultBox.textContent = `✅ Pairing Code: ${data.code}`;
+        } else if (data.error) {
+          resultBox.textContent = `❌ Error: ${data.error}`;
+        } else {
+          resultBox.textContent = "⚠️ Unknown response received.";
+        }
+      } catch (err) {
+        resultBox.textContent = `❌ Failed to get code: ${err.message}`;
+      }
+    }
+  </script>
+
+</body>
+</html>
